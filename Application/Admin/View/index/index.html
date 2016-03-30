@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+        var ROOT ="<?php echo C('ADMIN_ROOT');?>";
+    </script>
+</head>
+<body>
+<h1>
+    thinkPHP CURD操作！
+</h1>
+    <button id="getInfo">获取服务端信息</button>
+    <table border="1" bordercolor="#aaa" style="border-collapse: collapse;">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>age</th>
+            <th>gender</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody id="userList">
+
+        </tbody>
+    </table>
+
+
+    <form action="<?php echo C('ADMIN_ROOT');?>/index/addUser" method="post">
+        <table>
+            <thead></thead>
+            <tbody>
+            <tr>
+                <td>username</td>
+                <td><input type="text" name="name" placeholder="name"></td>
+            </tr>
+
+            <tr>
+                <td>age</td>
+                <td><input type="text" name="age" placeholder="age"></td>
+            </tr>
+
+            <tr>
+                <td>gender</td>
+                <td><input type="text" name="gender" placeholder="gender"></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td><input type="submit" value="添加用户"></td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+<script>
+
+    var renderBody = function (ele, data) {
+        var ele = document.getElementById(ele),
+            tpl = [];
+        for(var i = 0;i<data.length;i++){
+            tpl.push('<tr>');
+            tpl.push('<td>'+data[i].id+'</td>');
+            tpl.push('<td>'+data[i].name+'</td>');
+
+            tpl.push('<td>'+data[i].age+'</td>');
+            var gender = data[i].gender == 0 ? '男':data[i].gender == 1 ? '女':'未填写';
+            tpl.push('<td>'+gender+'</td>');
+            tpl.push('<td><a href="'+ROOT+'/index/delUser?id='+data[i].id+'">删除</a></td>');
+            tpl.push('</tr>');
+        }
+
+        ele.innerHTML = tpl.join('');
+    }
+
+    var btn = document.getElementById('getInfo');
+
+    btn.addEventListener('click', function () {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if(xhr.readyState == 4 && xhr.status == 200){
+                var data = JSON.parse(xhr.responseText);
+                renderBody('userList',data.data)
+            }
+        };
+        xhr.open('get',ROOT+'/index/getInfo',true);
+        xhr.send();
+    });
+
+
+</script>
+</body>
+</html>
