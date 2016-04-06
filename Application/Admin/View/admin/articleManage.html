@@ -1,0 +1,79 @@
+<include file="Public/header" />
+<div class="">
+    <div class="panel panel-default">
+        <div class="panel-heading">广告管理</div>
+        <div class="panel-body">
+            <div class="col-md-12">
+                <table class="table table-bordered" id="table_list">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>标题</th>
+                        <th>创建日期</th>
+                        <th>浏览量</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <foreach name="articlelist" item="article">
+                        <tr>
+                            <td>{$article.id}</td>
+                            <td>{$article.title}</td>
+                            <td>{$article.create_date}</td>
+                            <td>{$article.views}</td>
+                            <td>{$article.status}</td>
+                            <td>
+                                <a href="<?php echo C('ADMIN_ROOT');?>/admin/editArticle?id={$article.id}" class="btn btn-primary btn-edit" data-id="{$ad.id}">编辑</a>
+                                <a href="javascript:void(0)" class="btn btn-default btn-del" data-id="{$ad.id}">删除</a>
+                            </td>
+                        </tr>
+                    </foreach>
+                    </tbody>
+                </table>
+                <nav>
+                    <ul class="pagination pull-right">
+                        <li>
+                            <a href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li>
+                            <a href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('#table_list').bind('.btn-del','click', function () {
+            var id = $(this).data('id'),
+                $that = $(this);
+            $.ajax({
+                url:ROOT+'/admin/delAd',
+                data:{
+                    id:id
+                },
+                success: function (data) {
+                    alert('删除成功！');
+                    $that.closest('tr').remove();
+                },
+                error: function (err) {
+                    alert('数据获取错误！');
+                }
+            });
+        });
+    });
+</script>
+
+<include file="Public/footer" />

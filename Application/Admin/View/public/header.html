@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" style="height:100%">
+<head>
+    <meta charset="UTF-8">
+    <title>dashboard</title>
+    <link rel="stylesheet" href="__PUBLIC__/bootstrap/css/bootstrap.min.css">
+    <script src="__PUBLIC__/xQuery.js"></script>
+    <script>
+        var ROOT ="<?php echo C('ADMIN_ROOT');?>";
+        var _TAB = '{$tab}';
+
+        $(function () {
+            $('#'+_TAB).parent().addClass('actived');
+        })
+    </script>
+    <style>
+        body{
+            font-family: 'Microsoft YaHei UI';
+        }
+        .header{
+            height: 60px;
+            font-size:20px;
+            padding:0px 15px;
+            text-align: left;
+            line-height:60px;
+            color:#Fff;
+            font-family: 'Microsoft YaHei UI';
+            background-color: #0078d8;;
+        }
+
+        .header > a{
+            color:#fff;
+            font-size:14px;
+            float: right;
+
+        }
+
+        .clearfix:after{
+            contet:'';
+            display: block;
+            clear: both;
+        }
+
+        .dashboard_content{
+            min-height:calc(100% - (102px));
+        }
+
+        .dashboard_content > .leftBar{
+            width:180px;
+            float: left;
+            padding:10px;
+        }
+
+        .dashboard_content > .leftBar > ul{
+            list-style: none;
+            padding:0;
+            margin:0;
+        }
+
+        .dashboard_content > .leftBar > ul >li{
+            height:30px;
+            line-height:30px;
+            font-size:14px;
+            padding:0px 10px;
+        }
+
+        .dashboard_content > .leftBar > ul >li.actived{
+            background-color: #0078d8;
+        }
+
+        .dashboard_content > .leftBar > ul >li.actived > a{
+            color:#fff;
+        }
+
+        .dashboard_content > .div_line{
+            border-right:1px solid #dcdcdc;
+            height: 100%;
+            float: left;
+            width:1px;
+        }
+
+        .dashboard_content > .content{
+            margin-left: 190px;
+            background-color: #fff;
+            padding:10px;
+            overflow: hidden;
+        }
+
+        .footer{
+            border-top:1px solid #dcdcdc;
+            text-align: center;
+            height: 40px;
+            line-height: 40px;
+            font-size:14px;
+            clear:both;
+        }
+    </style>
+</head>
+<body style="height:100%">
+
+<div class="header clearfix">
+    后台管理系统
+
+    <a href="#">{$user[0].nickname}</a>
+    <a href='#'>注销登录 &nbsp;&nbsp;&nbsp;</a>
+</div>
+
+<div class="dashboard_content clearfix">
+    <div class="leftBar">
+        <ul>
+            <li><a href="<?php echo C('ADMIN_ROOT');?>/admin/adManage" id="_ad">广告管理</a></li>
+            <li><a href="<?php echo C('ADMIN_ROOT');?>/admin/articleManage" id="_article">文章管理</a></li>
+            <li><a href="<?php echo C('ADMIN_ROOT');?>/admin/noticeManage" id="_notice">公告管理</a></li>
+            <li><a href="<?php echo C('ADMIN_ROOT');?>/admin/slideManage" id="_slide">轮播广告管理</a></li>
+            <li><a href="<?php echo C('ADMIN_ROOT');?>/admin/personManage" id="_person">联系人列表</a></li>
+            <li><a href="<?php echo C('ADMIN_ROOT');?>/admin/statisticManage" id="_statistic">统计管理</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
